@@ -2,22 +2,22 @@
 
 // push() / pop()
 // push --> Daten rein ... (+)
-let arr = [];
-output(arr);
-arr.push("Ich");
-output(arr);
-arr.push("bin");
-output(arr);
-arr.push("Mia")
-output(arr);
+// let arr = [];
+// output(arr);
+// arr.push("Ich");
+// output(arr);
+// arr.push("bin");
+// output(arr);
+// arr.push("Mia")
+// output(arr);
 
 // pop() --> Daten raus ... (-)
-output(arr.pop());
-output(arr);
-output(arr.pop());
-output(arr);
-output(arr.pop());
-output(arr);
+// output(arr.pop());
+// output(arr);
+// output(arr.pop());
+// output(arr);
+// output(arr.pop());
+// output(arr);
 
 
 /*
@@ -33,7 +33,7 @@ const tags = ["html","head","head","body","h1","h1","p","p","body","html"];
 let stack = [];
 
 // // Modul: HTML-Synthese | Test
-// output(getHTML());
+output(getHTML());
 function getHTML() {
     
     let htmlStr = "";
@@ -49,8 +49,22 @@ function getHTML() {
     return htmlStr;
 }
 
-function isOpenElement() {
-    return true;
+function isOpenElement(tag) {
+    
+    let cond = (tag != stack[stack.length-1])  // tag liegt oben!
+
+   
+
+    if (cond) {             // open
+        stack.push(tag);
+        output(stack);
+        return true;
+
+    } else {                // close
+         stack.pop();
+        output(stack);
+        return false;
+    }
     
 }
 
