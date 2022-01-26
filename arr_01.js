@@ -1,4 +1,4 @@
-/*********   Theorie **********/
+/*********   Theorie ***********/
 
 // push() / pop()
 // push --> Daten rein ... (+)
@@ -8,7 +8,7 @@
 // output(arr);
 // arr.push("bin");
 // output(arr);
-// arr.push("Mia")
+// arr.push("Max");
 // output(arr);
 
 // pop() --> Daten raus ... (-)
@@ -28,21 +28,29 @@ einer HTML-Seite ausgibt:
 Verwenden Sie dafür die untenstehenden Arrays
 */
 
-const controls = ["<", "</", ">"];
-const tags = ["html","head","head","body","h1","h1","p","p","body","html"];
+const cobj      = {open_o:"<",close_o:"</",close:">"};
+const controls  = ["<", "</", ">"];
+const tags = [  "html","head","head","body",
+                "h1","h1",
+                "p","p",
+                "ul","li","li","li","li","li","li","ul",
+                "p","p",
+                "body","html"
+            ];
+
 let stack = [];
 
-// // Modul: HTML-Synthese | Test
+// Modul: HTML-Synthese | Test
 output(getHTML());
 function getHTML() {
-    
+
     let htmlStr = "";
 
     for (let i = 0; i < tags.length; i++) {
-        if (isOpenElement(tags[i])) {
-            htmlStr = htmlStr + getElement(tags[i],"open"); 
+        if (isOpenElement(tags[i])) { 
+            htmlStr += getElement(tags[i],"open");
         } else {
-            htmlStr = htmlStr + getElement(tags[i],"close");
+            htmlStr += getElement(tags[i],"close");
         }
     }
 
@@ -51,53 +59,40 @@ function getHTML() {
 
 function isOpenElement(tag) {
     
-    let cond = (tag != stack[stack.length-1])  // tag liegt oben!
-
-   
-
-    if (cond) {             // open
+    // tag liegt nicht oben! --> neu, open
+    let cond = (tag != stack[stack.length-1])  
+    
+    if (cond) {  // open
         stack.push(tag);
-        output(stack);
+        // output(stack);
         return true;
-
-    } else {                // close
-         stack.pop();
-        output(stack);
+    } else {  // close
+        stack.pop();
+        // output(stack);
         return false;
     }
-    
+     
 }
 
-
-// // Modul: Zusammenbau der Elements: <tagStr> ---> Test
-// // output(getElement(tags[1],"open"));
-// // output(getElement(tags[1],"close"));
-// // output(getElement(tags[1],));
+// Modul: Zusammenbau der Elements: <tagStr> --> Tests:
+// output(getElement(tags[1],"open"));
+// output(getElement(tags[1],"close"));
+// output(getElement(tags[1]));
 function getElement(tag,op) {
     switch (op) {
-        case "open":
-            return controls[0] + tag + controls[2];
+        case "open": 
+            // return controls[0] + tag + controls[2];
+            return cobj.open_o + tag + cobj.close;
         case "close":
-            return controls[1] + tag + controls[2];
+            // return controls[1] + tag + controls[2];
+            return cobj.close_o + tag + cobj.close;
         default:
-            return "#!?"
+          return "#!?";
     }
 }
 
-//     if (op == "open") {
-//         return controls[0] + tag + controls[2];
-//     }
-//     else if(op == "close"){
-//         return controls[1] + tag + controls[2];
-//     }
-//     else {
-//         return "#!?";
-//     }
-// }
-
-
-// // Modul: Ausgabe | Test
-// // output("hi");
+// Modul: Ausgabe | Test
+//output("hi");
 function output(outputData) {
     console.log(outputData);
 }
